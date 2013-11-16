@@ -1,7 +1,7 @@
-Ideamart-CASS-Java-Sample
+Ideamart-CAAS-Java-Sample
 =========================
 
-Dialog Ideamart Sample Java Code using CASS APIs
+Dialog Ideamart Sample Java Code using CAAS APIs
 
 @author: harshadura
 @license: WTF!
