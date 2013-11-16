@@ -3,10 +3,12 @@ Ideamart-CAAS-Java-Sample
 
 Dialog Ideamart Sample Java Code using CAAS APIs
 
-1) Direct Debit |
+1) Direct Debit
+
 2) Query Balance
 
-@author: harshadura |
+@author: harshadura
+
 @license: WTF!
 
 ---------------------------
@@ -14,6 +16,7 @@ Required Software
 ---------------------------
 
 (01)    Java 1.6
+
 (02)    Apache Maven 2.2.1
 
 ---------------------------
