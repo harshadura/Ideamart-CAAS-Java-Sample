@@ -23,5 +23,6 @@ Deploying the Web-App
         mvn clean install jetty:run
 
 >   Web app will start serving on the defined port: 8085
+    Sample MO url: http://localhost:8085/caas-sample/mo-receiver
 
 
