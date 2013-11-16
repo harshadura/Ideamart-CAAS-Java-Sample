@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.durapix.cass</groupId>
-    <artifactId>cass-sample</artifactId>
+    <groupId>org.durapix.caas</groupId>
+    <artifactId>caas-sample</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
-    <name>cass-sample</name>
+    <name>caas-sample</name>
     <url>http://maven.apache.org</url>
 
     <build>
-        <finalName>cass-sample</finalName>
+        <finalName>caas-sample</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -32,7 +32,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/cass-sample/WEB-INF/lib</outputDirectory>
+                            <outputDirectory>${basedir}/target/caas-sample/WEB-INF/lib</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${basedir}/lib</directory>
@@ -55,7 +55,7 @@
                         </connector>
                     </connectors>
                     <stopPort>9966</stopPort>
-                    <stopKey>cass-sample</stopKey>
+                    <stopKey>caas-sample</stopKey>
                 </configuration>
             </plugin>
         </plugins>

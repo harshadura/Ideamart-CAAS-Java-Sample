@@ -22,6 +22,6 @@ Deploying the Web-App
 >   type
         mvn clean install jetty:run
 
->   Web app will start serving on the defined port
+>   Web app will start serving on the defined port: 8085
 
 
