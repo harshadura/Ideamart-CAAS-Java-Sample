@@ -3,10 +3,10 @@ Ideamart-CAAS-Java-Sample
 
 Dialog Ideamart Sample Java Code using CAAS APIs
 
-1) Direct Debit
+1) Direct Debit |
 2) Query Balance
 
-@author: harshadura,
+@author: harshadura |
 @license: WTF!
 
 ---------------------------
@@ -26,6 +26,7 @@ Deploying the Web-App
         mvn clean install jetty:run
 
 >   Web app will start serving on the defined port: 8085
+
     Sample MO url: http://localhost:8085/caas-sample/mo-receiver
 
 
