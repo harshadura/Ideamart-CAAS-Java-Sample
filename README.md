@@ -3,7 +3,10 @@ Ideamart-CAAS-Java-Sample
 
 Dialog Ideamart Sample Java Code using CAAS APIs
 
-@author: harshadura
+1) Direct Debit
+2) Query Balance
+
+@author: harshadura,
 @license: WTF!
 
 ---------------------------
