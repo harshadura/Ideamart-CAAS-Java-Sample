@@ -5,6 +5,8 @@ import hms.kite.samples.api.StatusCodes;
 import hms.kite.samples.api.caas.ChargingRequestSender;
 import hms.kite.samples.api.caas.messages.DirectDebitRequest;
 import hms.kite.samples.api.caas.messages.DirectDebitResponse;
+import hms.kite.samples.api.caas.messages.QueryBalanceRequest;
+import hms.kite.samples.api.caas.messages.QueryBalanceResponse;
 import hms.kite.samples.api.sms.MoSmsListener;
 import hms.kite.samples.api.sms.SmsRequestSender;
 import hms.kite.samples.api.sms.messages.MoSmsReq;
@@ -18,7 +20,10 @@ import java.util.logging.Logger;
 public class SmsHandler implements MoSmsListener {
 
     private String app_url = "http://localhost:7000/sms/send";
+
     private String CAAS_URL_directDebit = "http://localhost:7000/caas/direct/debit";
+    private String CAAS_URL_queryBal = "http://localhost:7000/caas/get/balance";
+
     private String app_id = "APP_000001";
     private String app_password = "password";
     private String app_version;
@@ -71,7 +76,7 @@ public class SmsHandler implements MoSmsListener {
                 String statusDetails = directDebitResponse.getStatusDetail();
 
                 if (statusCode.equals("S1000")) {
-                    String infoMsg = "Charging Process completed successfully.";
+                    String infoMsg = "Rs. " + parts[2] +" Charged Successfully.";
                     LOGGER.info(infoMsg);
                     sendReply(infoMsg, phoneNumber);
                 } else {
@@ -86,8 +91,34 @@ public class SmsHandler implements MoSmsListener {
                 LOGGER.info("Error : " + ee.getMessage());
             }
         }
+
+        // Syntax: KEY BAL
+
+        else if (parts[1].equalsIgnoreCase("bal")) {
+            try {
+                QueryBalanceResponse queryBalanceResponse = queryBalance(phoneNumber);
+                String statusCode = queryBalanceResponse.getStatusCode();
+                String statusDetails = queryBalanceResponse.getStatusDetail();
+                String chargeableBalance = queryBalanceResponse.getChargeableBalance();
+
+                if (statusCode.equals("S1000")) {
+                    String infoMsg = "Chargeable Balance is: " + chargeableBalance;
+                    LOGGER.info(infoMsg);
+                    sendReply(infoMsg, phoneNumber);
+                } else {
+                    String infoMsg = "Process failed with status code [" + statusCode + "] " + statusDetails;
+                    LOGGER.info(infoMsg);
+                    sendReply(infoMsg, phoneNumber);
+                }
+
+                return;
+            } catch (Exception ee) {
+                ee.printStackTrace();
+                LOGGER.info("Error : " + ee.getMessage());
+            }
+        }
         else{
-            String infoMsg = "Hello!";
+            String infoMsg = "Hello, the Syntax is: KEY DEBIT <ServiceCharge> or KEY BAL then Send.";
             LOGGER.info(infoMsg);
             sendReply(infoMsg, phoneNumber);
         }
@@ -165,5 +196,24 @@ public class SmsHandler implements MoSmsListener {
         }
         return directDebitResponse;
     }
+
+    protected QueryBalanceResponse queryBalance(String phoneNumber) {
+        QueryBalanceResponse queryBalanceResponse = new QueryBalanceResponse();
+        try {
+            QueryBalanceRequest queryBalanceRequest = new QueryBalanceRequest();
+            queryBalanceRequest.setApplicationId(app_id);
+            queryBalanceRequest.setPassword(app_password);
+            queryBalanceRequest.setSubscriberId(phoneNumber);
+
+            ChargingRequestSender chargingRequestSender = new ChargingRequestSender(new URL(CAAS_URL_queryBal));
+            queryBalanceResponse = chargingRequestSender.sendQueryBalanceRequest(queryBalanceRequest);
+
+        } catch (Exception ex) {
+            LOGGER.info(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return queryBalanceResponse;
+    }
 }
+
 
